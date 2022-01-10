@@ -118,18 +118,21 @@ ${responses.description}
 5. [Tests](#tests)
 6. [Questions](#questions)
 
-### Installation 
+## Installation 
 ${responses.installation}
-### Usage 
+## Usage 
 ${responses.usage}
-### License 
+## License 
 ${responses.license}
-### Contributing 
+## Contributing 
 ${responses.contributing}
-### Tests 
+## Tests 
 ${responses.tests}
-### Questions
-${responses.github, responses.email}`, function(err) {
+## Questions
+###GitHub
+[GitHub](https://www.github.com/${responses.github}) 
+###Email
+${responses.email}`, function(err) {
     if (err) throw err;
     console.log('README created!');
 })
