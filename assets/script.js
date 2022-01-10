@@ -3,79 +3,138 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const markdown = require('./utilities/generateMarkdown');
 
-// Array of questions for user input
-const questions = ["What is the title of your project?", "Please describe your project.", "Write instructions for installation.", "Describe the usage of your application.", "Who contributed to your project?", "Provide test instructions."];
+// Questions for user input
+const questions = [
+    {
+        type: 'input',
+        message: "What is the title of your project?",
+        name: 'title',
+        default: 'Project Title',
+        validate: function (answer) {
+            if (answer.length < 1) {
+                return console.log("A valid project title is required.");
+            }
+            return true;
+        }
+    },
+    {
+        type: 'input',
+        message: "Please describe your project.",
+        name: 'description',
+        default: 'Project Description',
+        validate: function (answer) {
+            if (answer.length < 1) {
+                return console.log("A  project description is required.");
+            }
+            return true;
+        }
+    },
+    {
+        type: 'input',
+        message: "Describe the steps required for installation.",
+        name: 'installation'
+    },
+    {
+        type: 'input',
+        message: "Please describe the usage of your project.",
+        name: 'usage',
+        default: 'Project Usage',
+        validate: function (answer) {
+            if (answer.length < 1) {
+                return console.log("A  project usage description is required.");
+            }
+            return true;
+        }
+    },
+    {
+        type: 'list',
+        message: "Choose a license for your project.",
+        choices: ['Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The Unlicense'],
+        name: 'license'
+    },
+    {
+        type: 'input',
+        message: "Please describe any relevant contributors, or how users can contribute to your project.",
+        name: 'contributing'
+    },
+    {
+        type: 'input',
+        message: "If applicable, provide any tests written for your application.",
+        name: 'tests'
+    },
+ 
+    {
+        type: 'input',
+        message: "What is your GitHub username? (No @ needed)",
+        name: 'github',
+        default: 'chandrapanda',
+        validate: function (answer) {
+            if (answer.length < 1) {
+                return console.log("A valid GitHub username is required.");
+            }
+            return true;
+        }
+    },
+    {
+        type: 'input',
+        message: "What is your email address?",
+        name: 'email',
+        default: 'chandra_holt@hotmail.com',
+        validate: function (answer) {
+            if (answer.length < 1) {
+                return console.log("A valid email is required.");
+            }
+            return true;
+        }
+    }
+];
+
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    fs.writeFile('README.md', `##${data.title}`, function(err) {
-        if (err) throw err;
-        console.log('README Created!');
-    })
-}
+// function writeToFile(fileName, data) {
+//     fs.writeFile('README.md', `##${data.title}`, 
+//     function(err) {
+//         if (err) throw err;
+//         console.log('README Created!');
+//     })
+// }
 
 // TODO: Create a function to initialize app
 function init() {}
 
+    inquirer
+        .prompt(questions)
+        .then((responses) => {
+            console.log(responses);
+            fs.writeFile('newREADME.md', `# ${responses.title}
+
+## Description
+${responses.description}
+## Table of Contents
+1. [Installation](#installation) 
+2. [Usage](#usage)
+3. [License](#license)
+4. [Contributing](#contributing)
+5. [Tests](#tests)
+6. [Questions](#questions)
+
+### Installation 
+${responses.installation}
+### Usage 
+${responses.usage}
+### License 
+${responses.license}
+### Contributing 
+${responses.contributing}
+### Tests 
+${responses.tests}
+### Questions
+${responses.github, responses.email}`, function(err) {
+    if (err) throw err;
+    console.log('README created!');
+})
+});
+
 // Function call to initialize app
 init();
 
-
-inquirer
-.prompt([
-    {
-        type: "input",
-        message: "What is the name of your project?",
-        name: "name",
-    },
-    {
-        type: "input",
-        message: "Where are you located?",
-        name: "location",
-    },
-    {
-        type: "input",
-        message: "Type up a short bio.",
-        name: "bio",
-    },
-    {
-        type: "input",
-        message: "What is your LinkedIn URL?",
-        name: "linkedin",
-    },
-    {
-        type: "input",
-        message: "What is your GitHub URL?",
-        name: "github",
-    },
-    
-])
-.then((responses) => {
-    console.log(responses);
-    fs.writeFile('index.html', `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-      <link rel="stylesheet" href="style.css">
-      <title>About Me</title>
-    </head>
-    <body>
-      <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-4">Hi! My name is ${responses.name}</h1>
-        <p class="lead">I live in ${responses.location}.</p>
-        <h3>A little about me: ${responses.bio}<span class="badge badge-secondary">Contact Me</span></h3>
-        <ul class="list-group">
-          <li class="list-group-item">My GitHub URL is ${responses.github}</li>
-          <li class="list-group-item">LinkedIn: ${responses.linkedin}</li>
-        </ul>
-      </div>
-    </div>
-    </body>
-    </html>`, function(err) {
-        if (err) throw err;
-        console.log('File created!');
-})
-});
