@@ -1,5 +1,7 @@
 # readable-readme
-This Node-based application can create a project README file based on answers the user provides. The Inquirer package is used to execute this task.
+This Node-based application can create a project README file based on answers the user provides. The Inquirer package is used to execute this task. You can quickly and easily create a README file by using this command-line application to generate one. This allows the project creator to devote more time to working on the project and less time formatting a ReadMe file.
+
+![Screengrab](./assets/images/sample_readme.png)
 
 ## User Story
 

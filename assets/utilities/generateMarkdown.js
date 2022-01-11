@@ -1,4 +1,4 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
+// Returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(selectedLicense) {
   console.log(selectedLicense);
@@ -15,23 +15,23 @@ function renderLicenseBadge(selectedLicense) {
   }
 }
 
-// TODO: Create a function that returns the license link
+// Returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(selectedLicense) {
   if (selectedLicense === 'Mozilla Public License 2.0') {
-    return `![Mozilla](https://opensource.org/licenses/MPL-2.0)`;
+    return `[This application is licensed under Mozilla](https://opensource.org/licenses/MPL-2.0)`;
   } else if (selectedLicense === 'Apache License 2.0') {
-    return `![Apache]((https://opensource.org/licenses/Apache-2.0))`;
+    return `[This application is licensed under Apache]((https://opensource.org/licenses/Apache-2.0))`;
   } else if (selectedLicense === 'MIT License') {
-    return `![MIT](https://opensource.org/licenses/MIT)`;
+    return `[This application is licensed under MIT](https://opensource.org/licenses/MIT)`;
   } else if (selectedLicense === 'Boost Software License 1.0') {
-    return `![Boost](https://www.boost.org/LICENSE_1_0.txt)`;
+    return `[This application is licensed under Boost](https://www.boost.org/LICENSE_1_0.txt)`;
   } else {
     return ``;
   }
 }
 
-// TODO: Create a function that returns the license section of README
+// Returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(selectedLicense) {
   if (selectedLicense == 'none') {
@@ -41,7 +41,7 @@ function renderLicenseSection(selectedLicense) {
   }
 }
 
-// TODO: Create a function to generate markdown for README
+// Generates markdown for README
 function generateMarkdown(selectedLicense) {
   return `${renderLicenseSection(selectedLicense)}
   ${renderLicenseBadge(selectedLicense)}
