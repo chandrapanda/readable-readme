@@ -1,26 +1,51 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
-function renderLicenseBadge(Apache) {
-  return `[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)`
+function renderLicenseBadge(selectedLicense) {
+  console.log(selectedLicense);
+  if (selectedLicense === 'Mozilla Public License 2.0') {
+    return `[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)`;
+  } else if (selectedLicense === 'Apache License 2.0') {
+    return `[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)`;
+  } else if (selectedLicense === 'MIT License') {
+    return `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`;
+  } else if (selectedLicense === 'Boost Software License 1.0') {
+    return `[![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)`
+  } else {
+    return ``;
+  }
 }
 
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
-function renderLicenseLink(MIT) {
-  return `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-`}
+function renderLicenseLink(selectedLicense) {
+  if (selectedLicense === 'Mozilla Public License 2.0') {
+    return `![Mozilla](https://opensource.org/licenses/MPL-2.0)`;
+  } else if (selectedLicense === 'Apache License 2.0') {
+    return `![Apache]((https://opensource.org/licenses/Apache-2.0))`;
+  } else if (selectedLicense === 'MIT License') {
+    return `![MIT](https://opensource.org/licenses/MIT)`;
+  } else if (selectedLicense === 'Boost Software License 1.0') {
+    return `![Boost](https://www.boost.org/LICENSE_1_0.txt)`;
+  } else {
+    return ``;
+  }
+}
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
-function renderLicenseSection(IBM) {
-  return `[![License: IPL 1.0](https://img.shields.io/badge/License-IPL_1.0-blue.svg)](https://opensource.org/licenses/IPL-1.0)`
+function renderLicenseSection(selectedLicense) {
+  if (selectedLicense == 'none') {
+    return ``;
+  } else { 
+    return `## License `;
+  }
 }
 
 // TODO: Create a function to generate markdown for README
-function generateMarkdown(data) {
-  return `# ${data.title}
-
-`;
+function generateMarkdown(selectedLicense) {
+  return `${renderLicenseSection(selectedLicense)}
+  ${renderLicenseBadge(selectedLicense)}
+  ${renderLicenseLink(selectedLicense)}`;
 }
 
 module.exports = generateMarkdown;

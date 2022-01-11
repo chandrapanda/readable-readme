@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const markdown = require('./utilities/generateMarkdown');
 
-// Questions for user input
+//Questions for user input 
 const questions = [
     {
         type: 'input',
@@ -39,17 +39,11 @@ const questions = [
         message: "Please describe the usage of your project.",
         name: 'usage',
         default: 'Project Usage',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A  project usage description is required.");
-            }
-            return true;
-        }
     },
     {
         type: 'list',
         message: "Choose a license for your project.",
-        choices: ['Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The Unlicense'],
+        choices: ['Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'none'],
         name: 'license'
     },
     {
@@ -68,44 +62,23 @@ const questions = [
         message: "What is your GitHub username? (No @ needed)",
         name: 'github',
         default: 'chandrapanda',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid GitHub username is required.");
-            }
-            return true;
-        }
     },
     {
         type: 'input',
         message: "What is your email address?",
         name: 'email',
         default: 'chandra_holt@hotmail.com',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid email is required.");
-            }
-            return true;
-        }
     }
 ];
 
 
-// TODO: Create a function to write README file
-// function writeToFile(fileName, data) {
-//     fs.writeFile('README.md', `##${data.title}`, 
-//     function(err) {
-//         if (err) throw err;
-//         console.log('README Created!');
-//     })
-// }
-
-// TODO: Create a function to initialize app
-function init() {}
-
+//Function to write README file
+function writeReadMe() {
     inquirer
         .prompt(questions)
         .then((responses) => {
             console.log(responses);
+            const myMarkdown = markdown(responses.license);
             fs.writeFile('newREADME.md', `# ${responses.title}
 
 ## Description
@@ -113,31 +86,31 @@ ${responses.description}
 ## Table of Contents
 1. [Installation](#installation) 
 2. [Usage](#usage)
-3. [License](#license)
-4. [Contributing](#contributing)
-5. [Tests](#tests)
-6. [Questions](#questions)
+3. [Contributing](#contributing)
+4. [Tests](#tests)
+5. [Questions](#questions)
 
 ## Installation 
 ${responses.installation}
 ## Usage 
 ${responses.usage}
-## License 
-${responses.license}
 ## Contributing 
 ${responses.contributing}
 ## Tests 
 ${responses.tests}
 ## Questions
-###GitHub
+### GitHub
 [GitHub](https://www.github.com/${responses.github}) 
-###Email
-${responses.email}`, function(err) {
+### Email
+${responses.email}
+${myMarkdown}`, function(err) {
     if (err) throw err;
     console.log('README created!');
+    
 })
-});
+})
+};
 
 // Function call to initialize app
-init();
+writeReadMe();
 
